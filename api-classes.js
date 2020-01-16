@@ -50,7 +50,7 @@ class StoryList {
     // the script.js file where it will be appended to the DOM
     const response = await axios.post(`${BASE_URL}/stories`,
       {
-        "token": user.token,
+        "token": user.loginToken,
         "story": {
           "author": newStory.author,
           "title": newStory.title,

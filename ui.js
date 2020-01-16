@@ -108,9 +108,9 @@ $(async function() {
       title: $title,
       url: $url
     }
-
     // call addStory??
-    await StoryList.addStory(currentUser, newStory);
+    const newStoryResponse = await storyList.addStory(currentUser, newStory);
+    //console.log(newStoryResponse);
     //const newStoryResponse = await StoryList.addStory(currentUser, newStory);
 
     //console.log(newStoryResponse);
