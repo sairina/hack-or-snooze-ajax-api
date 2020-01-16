@@ -32,6 +32,7 @@ class StoryList {
 
     // build an instance of our own class using the new array of stories
     const storyList = new StoryList(stories);
+    // console.log(storyList)
     return storyList;
   }
 
@@ -47,6 +48,17 @@ class StoryList {
     // TODO - Implement this functions!
     // this function should return the newly created story so it can be used in
     // the script.js file where it will be appended to the DOM
+    const response = await axios.post(`${BASE_URL}/stories`,
+      {
+        "token": user.token,
+        "story": {
+          "author": newStory.author,
+          "title": newStory.title,
+          "url": newStory.url
+        }
+      });
+      console.log(response)
+    return response;
   }
 }
 

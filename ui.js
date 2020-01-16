@@ -80,6 +80,16 @@ $(async function() {
   });
 
   /**
+   * Event Handler for Article Form Submit
+   */
+
+  $submitForm.on("submit", function() {
+    // Show the new story submit form
+    
+    
+  });
+
+  /**
    * Event handler for Navigation to Homepage
    */
 
