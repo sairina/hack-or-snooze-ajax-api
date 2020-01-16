@@ -8,6 +8,8 @@ $(async function() {
   const $ownStories = $("#my-articles");
   const $navLogin = $("#nav-login");
   const $navLogOut = $("#nav-logout");
+  const $navLinks = $("#nav-links");
+  const $navSubmit = $("#nav-submit");
 
   // global storyList variable
   let storyList = null;
@@ -80,13 +82,40 @@ $(async function() {
   });
 
   /**
+   * Event Handler for Clicking Submit
+   */
+
+  $navSubmit.on("click", function() {
+    // Show the Login and Create Account Forms
+    $submitForm.slideToggle();
+  });
+  /**
    * Event Handler for Article Form Submit
    */
 
-  $submitForm.on("submit", function() {
-    // Show the new story submit form
+  $submitForm.on("submit", async function(evt) {
+    evt.preventDefault(); // no page-refresh on submit
+
+    // Get data from submit form
+    const $author = $("#author").val();
+    const $title = $("#title").val();
+    const $url = $("#url").val();
     
-    
+    console.log($author,$title,$url);
+    // Add story to story list
+    const newStory = {
+      author: $author,
+      title: $title,
+      url: $url
+    }
+
+    // call addStory??
+    await StoryList.addStory(currentUser, newStory);
+    //const newStoryResponse = await StoryList.addStory(currentUser, newStory);
+
+    //console.log(newStoryResponse);
+    // create markup
+
   });
 
   /**
@@ -199,6 +228,8 @@ $(async function() {
   function showNavForLoggedInUser() {
     $navLogin.hide();
     $navLogOut.show();
+    //shows nav links after login
+    $navLinks.show();
   }
 
   /* simple function to pull the hostname from a URL */

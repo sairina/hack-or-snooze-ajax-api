@@ -44,7 +44,7 @@ class StoryList {
    * Returns the new story object
    */
 
-  async addStory(user, newStory) {
+ async addStory(user, newStory) {
     // TODO - Implement this functions!
     // this function should return the newly created story so it can be used in
     // the script.js file where it will be appended to the DOM
@@ -57,8 +57,8 @@ class StoryList {
           "url": newStory.url
         }
       });
-      console.log(response)
-    return response;
+    newStory = new Story(response.data);
+    return newStory;
   }
 }
 
