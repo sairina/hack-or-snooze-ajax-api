@@ -57,7 +57,8 @@ class StoryList {
           "url": newStory.url
         }
       });
-    newStory = new Story(response.data);
+    //  console.log(response.data.story);
+    newStory = new Story(response.data.story);
     return newStory;
   }
 }

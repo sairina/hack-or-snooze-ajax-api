@@ -101,20 +101,18 @@ $(async function() {
     const $title = $("#title").val();
     const $url = $("#url").val();
     
-    console.log($author,$title,$url);
     // Add story to story list
     const newStory = {
       author: $author,
       title: $title,
       url: $url
     }
-    // call addStory??
-    const newStoryResponse = await storyList.addStory(currentUser, newStory);
-    //console.log(newStoryResponse);
-    //const newStoryResponse = await StoryList.addStory(currentUser, newStory);
-
-    //console.log(newStoryResponse);
-    // create markup
+    // call addStory
+    const addedStory = await storyList.addStory(currentUser, newStory);
+    // convert story to html item
+    const $newStoryMarkup = generateStoryHTML(addedStory);
+    // prepend markup to list
+    $allStoriesList.prepend($newStoryMarkup);
 
   });
 
@@ -207,7 +205,6 @@ $(async function() {
         <small class="article-username">posted by ${story.username}</small>
       </li>
     `);
-
     return storyMarkup;
   }
 
