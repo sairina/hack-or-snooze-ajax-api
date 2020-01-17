@@ -201,22 +201,20 @@ $(async function () {
   /**
    * Toggles star class
    */
-  
-   $("span").on("click", function () {
+
+  $("span").on("click", function () {
     //console.log(this);
     $(this).children().toggleClass("fas far");
-    console.log($(this).parent()[0].id);
-    currentUser.addFavorite(currentUser,$(this).parent()[0].id);
+    // console.log($(this).parent()[0].id);
+    currentUser.addFavorite(currentUser, $(this).parent()[0].id);
   })
   /**
    * Toggles favorites list
    */
-  
+
   $navFavorites.on("click", function () {
     $allStoriesList.hide();
     $favoritedList.show();
-    
-  
   })
   /**
    * A function to render HTML for an individual Story instance
@@ -224,14 +222,20 @@ $(async function () {
 
   function generateStoryHTML(story) {
     let hostName = getHostName(story.url);
-    //story.storyId
-    // if story.storyID in user.favorties then "fas" else "far"
-    // star = "far" or "fas"
-    // render story markup
+    let star = "far";
+
+    // Finds favorited article in favorites arr and keeps it favorited
+    // on homepage
+    for(let i = 0; i < currentUser.favorites.length; i++){
+      if(currentUser.favorites[i].storyId === story.storyId){
+        star = "fas";
+      }
+    }
+
     const storyMarkup = $(`
       <li id="${story.storyId}">
         <span>
-          <i class="far fa-star" id="star"></i>
+          <i class="${star} fa-star" id="star"></i>
         </span>
         <a class="article-link" href="${story.url}" target="a_blank">
           <strong>${story.title}</strong>
