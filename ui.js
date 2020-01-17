@@ -1,4 +1,4 @@
-$(async function() {
+$(async function () {
   // cache some selectors we'll be using quite a bit
   const $allStoriesList = $("#all-articles-list");
   const $submitForm = $("#submit-form");
@@ -24,7 +24,7 @@ $(async function() {
    *  If successfully we will setup the user instance
    */
 
-  $loginForm.on("submit", async function(evt) {
+  $loginForm.on("submit", async function (evt) {
     evt.preventDefault(); // no page-refresh on submit
 
     // grab the username and password
@@ -44,7 +44,7 @@ $(async function() {
    *  If successfully we will setup a new user instance
    */
 
-  $createAccountForm.on("submit", async function(evt) {
+  $createAccountForm.on("submit", async function (evt) {
     evt.preventDefault(); // no page refresh
 
     // grab the required fields
@@ -63,7 +63,7 @@ $(async function() {
    * Log Out Functionality
    */
 
-  $navLogOut.on("click", function() {
+  $navLogOut.on("click", function () {
     // empty out local storage
     localStorage.clear();
     // refresh the page, clearing memory
@@ -74,7 +74,7 @@ $(async function() {
    * Event Handler for Clicking Login
    */
 
-  $navLogin.on("click", function() {
+  $navLogin.on("click", function () {
     // Show the Login and Create Account Forms
     $loginForm.slideToggle();
     $createAccountForm.slideToggle();
@@ -85,7 +85,7 @@ $(async function() {
    * Event Handler for Clicking Submit Link
    */
 
-  $navSubmit.on("click", function() {
+  $navSubmit.on("click", function () {
     // Show the Login and Create Account Forms
     $submitForm.slideToggle();
   });
@@ -94,14 +94,14 @@ $(async function() {
    * Event Handler for Article Form Submit
    */
 
-  $submitForm.on("submit", async function(evt) {
+  $submitForm.on("submit", async function (evt) {
     evt.preventDefault(); // no page-refresh on submit
 
     // Get data from submit form
     const $author = $("#author").val();
     const $title = $("#title").val();
     const $url = $("#url").val();
-    
+
     // Add story to story list
     const newStory = {
       author: $author,
@@ -112,15 +112,15 @@ $(async function() {
     const addedStory = await storyList.addStory(currentUser, newStory);
     // convert story to html item
     const $newStoryMarkup = generateStoryHTML(addedStory);
-    
+
     //clears author, title, url
     $("#author").val("");
     $("#title").val("");
     $("#url").val("");
-    
+
     // prepend markup to list
     $allStoriesList.prepend($newStoryMarkup);
-    
+
     $submitForm.slideToggle();
 
   });
@@ -129,7 +129,7 @@ $(async function() {
    * Event handler for Navigation to Homepage
    */
 
-  $("body").on("click", "#nav-all", async function() {
+  $("body").on("click", "#nav-all", async function () {
     hideElements();
     await generateStories();
     $allStoriesList.show();
@@ -197,6 +197,14 @@ $(async function() {
   }
 
   /**
+   * Toggles star class
+   */
+  
+   $("span").on("click", function () {
+    $(this).children().toggleClass("fas far");
+  })
+
+  /**
    * A function to render HTML for an individual Story instance
    */
 
@@ -206,6 +214,9 @@ $(async function() {
     // render story markup
     const storyMarkup = $(`
       <li id="${story.storyId}">
+        <span>
+          <i class="far fa-star" id="star"></i>
+        </span>
         <a class="article-link" href="${story.url}" target="a_blank">
           <strong>${story.title}</strong>
         </a>
