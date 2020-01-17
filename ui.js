@@ -13,6 +13,7 @@ $(async function () {
   const $navFavorites = $("#nav-favorites");
   const $favoritedList = $("#favorited-articles");
 
+
   // global storyList variable
   let storyList = null;
 
@@ -215,12 +216,24 @@ $(async function () {
    * Toggles star class for favorites
    */
 
-  $("body").on("click", ".star-class", function () {
+  $("body").on("click", ".star-class", async function () {
+    let $storyId = $(this).parent()[0].id;
+
     $(this).children().toggleClass("fas far");
 
-    currentUser.addFavorite(currentUser, $(this).parent()[0].id);
+    // POSTS a new favorite to API and resets currentUser.favorites array
+    currentUser.favorites = await currentUser.addFavorite(currentUser, $storyId);
+
+    //if star is toggled to 'far'
+    //run currentUser.removeFavorite(currentUser, //storyId)
+    //update $allStoriesList's toggle for star
+
+    if ($(this).children().hasClass("far")) {
+      currentUser.removeFavorite(currentUser, $storyId);
+    }
+
   })
-  
+
   /**
    * Toggles favorites list
    */
@@ -242,8 +255,9 @@ $(async function () {
 
     // Finds favorited article in favorites arr and keeps it favorited
     // on homepage
-    for(let i = 0; i < currentUser.favorites.length; i++){
-      if(currentUser.favorites[i].storyId === story.storyId){
+
+    for (let i = 0; i < currentUser.favorites.length; i++) {
+      if (currentUser.favorites[i].storyId === story.storyId) {
         star = "fas";
       }
     }
@@ -261,8 +275,8 @@ $(async function () {
         <small class="article-username">posted by ${story.username}</small>
       </li>
     `);
-    return storyMarkup;
 
+    return storyMarkup;
   }
 
   /* hide all elements in elementsArr */
