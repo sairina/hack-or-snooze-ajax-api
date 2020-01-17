@@ -212,15 +212,15 @@ $(async function () {
   }
 
   /**
-   * Toggles star class
+   * Toggles star class for favorites
    */
 
-  $("span").on("click", function () {
-    //console.log(this);
+  $("body").on("click", ".star-class", function () {
     $(this).children().toggleClass("fas far");
-    // console.log($(this).parent()[0].id);
+
     currentUser.addFavorite(currentUser, $(this).parent()[0].id);
   })
+  
   /**
    * Toggles favorites list
    */
@@ -250,7 +250,7 @@ $(async function () {
 
     const storyMarkup = $(`
       <li id="${story.storyId}">
-        <span>
+        <span class="star-class">
           <i class="${star} fa-star" id="star"></i>
         </span>
         <a class="article-link" href="${story.url}" target="a_blank">
@@ -262,6 +262,7 @@ $(async function () {
       </li>
     `);
     return storyMarkup;
+
   }
 
   /* hide all elements in elementsArr */
