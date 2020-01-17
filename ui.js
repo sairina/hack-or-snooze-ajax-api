@@ -135,6 +135,7 @@ $(async function () {
     hideElements();
     await generateStories();
     $allStoriesList.show();
+    $favoritedList.hide();
   });
 
   /**
@@ -199,6 +200,18 @@ $(async function () {
   }
 
   /**
+   * A rendering function to generate Favorite List. Then render it.
+   */
+
+  async function generateFavorites() {
+    // loop through all of our favorites and generate HTML for them
+    for (let favorite of currentUser.favorites) {
+      const result = generateStoryHTML(favorite);
+      $favoritedList.append(result);
+    }
+  }
+
+  /**
    * Toggles star class
    */
 
@@ -215,6 +228,9 @@ $(async function () {
   $navFavorites.on("click", function () {
     $allStoriesList.hide();
     $favoritedList.show();
+
+    $favoritedList.empty();
+    generateFavorites();
   })
   /**
    * A function to render HTML for an individual Story instance
