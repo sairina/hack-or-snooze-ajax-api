@@ -10,6 +10,8 @@ $(async function () {
   const $navLogOut = $("#nav-logout");
   const $navLinks = $("#nav-links");
   const $navSubmit = $("#nav-submit");
+  const $navFavorites = $("#nav-favorites");
+  const $favoritedList = $("#favorited-articles");
 
   // global storyList variable
   let storyList = null;
@@ -201,9 +203,20 @@ $(async function () {
    */
   
    $("span").on("click", function () {
+    //console.log(this);
     $(this).children().toggleClass("fas far");
+    console.log($(this).parent()[0].id);
+  
   })
-
+  /**
+   * Toggles favorites list
+   */
+  
+  $navFavorites.on("click", function () {
+    $allStoriesList.hide();
+    $favoritedList.show();
+  
+  })
   /**
    * A function to render HTML for an individual Story instance
    */
