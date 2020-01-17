@@ -82,13 +82,14 @@ $(async function() {
   });
 
   /**
-   * Event Handler for Clicking Submit
+   * Event Handler for Clicking Submit Link
    */
 
   $navSubmit.on("click", function() {
     // Show the Login and Create Account Forms
     $submitForm.slideToggle();
   });
+
   /**
    * Event Handler for Article Form Submit
    */
@@ -111,8 +112,16 @@ $(async function() {
     const addedStory = await storyList.addStory(currentUser, newStory);
     // convert story to html item
     const $newStoryMarkup = generateStoryHTML(addedStory);
+    
+    //clears author, title, url
+    $("#author").val("");
+    $("#title").val("");
+    $("#url").val("");
+    
     // prepend markup to list
     $allStoriesList.prepend($newStoryMarkup);
+    
+    $submitForm.slideToggle();
 
   });
 
