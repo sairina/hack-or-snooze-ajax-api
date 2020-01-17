@@ -180,7 +180,9 @@ class User {
 
   async removeFavorite(user, storyId) {
     const response = await axios.delete(`${BASE_URL}/users/${user.username}/favorites/${storyId}`, {
-      token: user.loginToken
+      data: {
+        token: user.loginToken
+      }
     });
 
     let newFavorites = response.data.user.favorites.map(s => new Story(s));

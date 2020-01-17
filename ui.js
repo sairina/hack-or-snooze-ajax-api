@@ -213,25 +213,20 @@ $(async function () {
   }
 
   /**
-   * Toggles star class for favorites
+   * Toggles star class for favorites;
+   * If there is a solid star on article, remove the story, else add story to list
    */
 
   $("body").on("click", ".star-class", async function () {
     let $storyId = $(this).parent()[0].id;
-
-    $(this).children().toggleClass("fas far");
-
-    // POSTS a new favorite to API and resets currentUser.favorites array
-    currentUser.favorites = await currentUser.addFavorite(currentUser, $storyId);
-
-    //if star is toggled to 'far'
-    //run currentUser.removeFavorite(currentUser, //storyId)
-    //update $allStoriesList's toggle for star
-
-    if ($(this).children().hasClass("far")) {
-      currentUser.removeFavorite(currentUser, $storyId);
+    
+    if ($(this).children().hasClass("fas")) {
+      currentUser.favorites = await currentUser.removeFavorite(currentUser, $storyId);
+    } else {
+      currentUser.favorites = await currentUser.addFavorite(currentUser, $storyId);
     }
-
+    
+    $(this).children().toggleClass("fas far");
   })
 
   /**
