@@ -206,7 +206,7 @@ $(async function () {
     //console.log(this);
     $(this).children().toggleClass("fas far");
     console.log($(this).parent()[0].id);
-  
+    currentUser.addFavorite(currentUser,$(this).parent()[0].id);
   })
   /**
    * Toggles favorites list
@@ -215,6 +215,7 @@ $(async function () {
   $navFavorites.on("click", function () {
     $allStoriesList.hide();
     $favoritedList.show();
+    
   
   })
   /**
@@ -223,7 +224,9 @@ $(async function () {
 
   function generateStoryHTML(story) {
     let hostName = getHostName(story.url);
-
+    //story.storyId
+    // if story.storyID in user.favorties then "fas" else "far"
+    // star = "far" or "fas"
     // render story markup
     const storyMarkup = $(`
       <li id="${story.storyId}">

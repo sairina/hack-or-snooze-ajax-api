@@ -64,6 +64,7 @@ class StoryList {
 }
 
 
+
 /**
  * The User class to primarily represent the current user.
  *  There are helper methods to signup (create), login, and getLoggedInUser
@@ -164,7 +165,15 @@ class User {
     existingUser.ownStories = response.data.user.stories.map(s => new Story(s));
     return existingUser;
   }
+  async addFavorite(user, storyId) {
+    const response = await axios.post(`${BASE_URL}/users/${user.username}/favorites/${storyId}`, {
+      token: user.loginToken
+    });
+   console.log(response);
+  }
 }
+
+
 
 /**
  * Class to represent a single story.
