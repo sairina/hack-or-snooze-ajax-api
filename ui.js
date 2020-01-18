@@ -11,6 +11,7 @@ $(async function () {
   const $navLinks = $("#nav-links");
   const $navSubmit = $("#nav-submit");
   const $navFavorites = $("#nav-favorites");
+  const $navMyStories = $("#nav-my-stories");
   const $favoritedList = $("#favorited-articles");
 
 
@@ -242,6 +243,30 @@ $(async function () {
     $favoritedList.empty();
     generateFavorites();
   })
+
+  /**
+   * Toggles my stories list
+   */
+
+  $navMyStories.on("click", function () {
+    hideElements();
+    $ownStories.show();
+    $ownStories.empty();
+    // await  currentUser =  User.getLoggedInUser(currentUser.loginToken, currentUser.username);
+    generateOwnStories();
+  })
+/**
+   * A function to generate own story list
+   */
+  function generateOwnStories() {
+    console.log(currentUser.ownStories);
+
+    for (let ownStory of currentUser.ownStories) {
+      const result = generateStoryHTML(ownStory);
+      result.removeClass("hidden")
+      $ownStories.append(result);
+    }
+  }
   /**
    * A function to render HTML for an individual Story instance
    */
@@ -263,6 +288,7 @@ $(async function () {
     const storyMarkup = $(`
       <li id="${story.storyId}">
         <span class="star-class">
+          <i class="fas fa-trash-alt hidden" id="trash"></i>
           <i class="${star} fa-star" id="star"></i>
         </span>
         <a class="article-link" href="${story.url}" target="a_blank">
