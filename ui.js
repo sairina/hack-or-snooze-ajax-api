@@ -238,6 +238,7 @@ $(async function () {
 
   $navFavorites.on("click", function () {
     $allStoriesList.hide();
+    $ownStories.hide();
     $favoritedList.show();
 
     $favoritedList.empty();
@@ -250,6 +251,7 @@ $(async function () {
 
   $navMyStories.on("click", function () {
     hideElements();
+    $favoritedList.hide();
     $ownStories.show();
     $ownStories.empty();
     // await  currentUser =  User.getLoggedInUser(currentUser.loginToken, currentUser.username);
@@ -264,7 +266,7 @@ $(async function () {
     for (let ownStory of currentUser.ownStories) {
       const result = generateStoryHTML(ownStory);
       
-      $("i").removeClass("hidden"); // delete icon appears
+      $("i").removeClass("hidden"); // delete trashcan icon appears
       
       $ownStories.append(result);
     }
