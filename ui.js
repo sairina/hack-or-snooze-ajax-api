@@ -263,7 +263,9 @@ $(async function () {
 
     for (let ownStory of currentUser.ownStories) {
       const result = generateStoryHTML(ownStory);
-      result.removeClass("hidden")
+      
+      $("i").removeClass("hidden"); // delete icon appears
+      
       $ownStories.append(result);
     }
   }
@@ -289,6 +291,8 @@ $(async function () {
       <li id="${story.storyId}">
         <span class="star-class">
           <i class="fas fa-trash-alt hidden" id="trash"></i>
+        </span> 
+        <span class="star-class">
           <i class="${star} fa-star" id="star"></i>
         </span>
         <a class="article-link" href="${story.url}" target="a_blank">
