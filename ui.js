@@ -136,7 +136,10 @@ $(async function () {
     hideElements();
     await generateStories();
     $allStoriesList.show();
-    $favoritedList.hide();
+
+    if (currentUser) {
+      $favoritedList.hide();
+    }
   });
 
   /**
@@ -217,16 +220,15 @@ $(async function () {
    * If there is a solid star on article, remove the story, else add story to list
    */
 
-  $("body").on("click", ".star-class", async function () {
-    let $storyId = $(this).parent()[0].id;
+  $(".articles-container").on("click", ".star-class", async function () {
+    let storyId = $(this).parent()[0].id;
+    let isFavorited = $(this).children().hasClass("fas");
     
-    if ($(this).children().hasClass("fas")) {
-      currentUser.favorites = await currentUser.removeFavorite(currentUser, $storyId);
-    } else {
-      currentUser.favorites = await currentUser.addFavorite(currentUser, $storyId);
-    }
+    currentUser.favorites = isFavorited ? 
+      await currentUser.removeFavorite(currentUser, storyId) : 
+      await currentUser.addFavorite(currentUser, storyId);
     
-    $(this).children().toggleClass("fas far");
+      $(this).children().toggleClass("fas far");
   })
 
   /**
@@ -250,10 +252,11 @@ $(async function () {
 
     // Finds favorited article in favorites arr and keeps it favorited
     // on homepage
-
-    for (let i = 0; i < currentUser.favorites.length; i++) {
-      if (currentUser.favorites[i].storyId === story.storyId) {
-        star = "fas";
+    if (currentUser) {
+      for (let i = 0; i < currentUser.favorites.length; i++) {
+        if (currentUser.favorites[i].storyId === story.storyId) {
+          star = "fas";
+        }
       }
     }
 
